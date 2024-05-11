@@ -23,14 +23,21 @@ class ItemTile extends StatelessWidget {
       color: item.backgroundColor,
       child: InkWell(
         onTap: () {
-          showModalBottomSheet(
+          showDialog(
             context: context,
-            isScrollControlled: true,
             builder: (BuildContext context) {
-              return _PopupContent(
-                items: items,
-                currentIndex: index,
-                isAutoNextEnabled: isTimerEnabled,
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Card.outlined(
+                    child: _PopupContent(
+                      items: items,
+                      currentIndex: index,
+                      isAutoNextEnabled: isTimerEnabled,
+                    ),
+                  ),
+                ],
               );
             },
           );
@@ -218,8 +225,7 @@ class _PopupContentState extends State<_PopupContent> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          const Color.fromARGB(216, 233, 101, 92)),
+                      backgroundColor: MaterialStateProperty.all(const Color.fromARGB(216, 233, 101, 92)),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
@@ -281,9 +287,7 @@ class _AtoZState extends State<AtoZ> {
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: isTimerEnabled
-                        ? MaterialStateProperty.all(Colors.green)
-                        : MaterialStateProperty.all(Colors.red),
+                    backgroundColor: isTimerEnabled ? MaterialStateProperty.all(Colors.green) : MaterialStateProperty.all(Colors.red),
                   ),
                   onPressed: () {
                     setState(() {
